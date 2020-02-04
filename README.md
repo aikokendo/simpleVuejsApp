@@ -6,6 +6,7 @@ Simple app that uses the service CSVtoJSONorXML.
 + Authentication: login, logout and management of JWT tokens, including refresh tokens as needed.
 + Actions: display the list of users created and allows for new user creation.
 
+Concepts explored: Router, vuex, axios
 
 ## Project setup
 ```
