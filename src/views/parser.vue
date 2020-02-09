@@ -41,9 +41,6 @@ import axios from 'axios'
         },
         methods: {
             parse() {
-                            /* eslint-disable no-console */
-            console.log(this.csvText)
-            /* eslint-enable no-console */
                 var headers = {
                     'Content-Type': 'text/plain'
                 }
