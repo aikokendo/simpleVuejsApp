@@ -35,6 +35,7 @@
                     this.$router.push({ name: 'dashboard'})
                 })
                 .catch(() => {
+                    // this.error = err
                     this.error = "Invalid username or password"
                 })
             }

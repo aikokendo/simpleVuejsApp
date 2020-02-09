@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
 import createUser from '../views/createUser.vue'
+import parser from '../views/parser.vue'
 
 Vue.use(Router)
 
@@ -30,7 +31,12 @@ const router = new Router({
             name: 'createUser',
             component: createUser,
             meta: {requiresAuth: true}
-        }
+        },
+        {   path: '/parser',
+            name: 'parser',
+            component: parser,
+            meta: {requiresAuth: true}
+    }
 
     ]
 })

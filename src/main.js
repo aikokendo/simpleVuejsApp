@@ -21,16 +21,24 @@ new Vue({
     //intercept request, check if token needs refreshing.
     Axios.interceptors.request.use((config) => {
       let originalRequest = config
-      if(this.$store.getters.isTokenExpired) {
-        this.$store.dispatch('refresh_token')
-        return Promise.resolve(originalRequest)
+      if(this.$store.getters.userLoaded){
+        if (this.$store.getters.tokenExpiration){
+          if(this.$store.getters.tokenExpiration < (Date.now()/1000)) {
+            this.$store.commit('CLEAR_TOKEN_EXPIRATION')
+            this.$store.dispatch('refresh_token')
+            return Promise.resolve(originalRequest)
+          }
+        }
       }
       return config
-    })
+    }, (err) => {
+      return Promise.reject(err)
+    }
+    )
 
-    //intercept responses, if we have an 401 unathorized response,
+    // intercept responses, if we have an 401 unathorized response,
     // we should logout.
-    //this protects against fake tokens
+    // this protects against fake tokens
     Axios.interceptors.response.use(
       response => response,
       error => {

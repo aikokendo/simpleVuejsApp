@@ -15,13 +15,16 @@ export default new Vuex.Store({
     mutations: {
         SET_USER_DATA(state, userData){
             state.user = userData
-            state.tokenExpiration = Date.now() / 1000 + parseInt(userData.expires_in);
+            state.tokenExpiration = (Date.now() / 1000) + parseInt(userData.expires_in);
             localStorage.setItem('user', JSON.stringify(userData))
             axios.defaults.headers.common['Authorization']=`Bearer ${userData.access_token}`
         },
         LOGOUT(){
             localStorage.removeItem('user')
             location.reload()
+        },
+        CLEAR_TOKEN_EXPIRATION(state){
+            state.tokenExpiration = null
         }
     },
     actions: {
@@ -41,9 +44,9 @@ export default new Vuex.Store({
             commit('LOGOUT');
         },
         refresh_token({commit}){
-            /* eslint-disable no-console */
-            console.log('refreshing token')
-            /* eslint-enable no-console */
+            // /* eslint-disable no-console */
+            // console.log('refreshing token')
+            // /* eslint-enable no-console */
             var params = new URLSearchParams();
             params.append('refresh_token',this.state.user.refresh_token);
             params.append('grant_type','refresh_token')
@@ -67,8 +70,11 @@ export default new Vuex.Store({
             }
             return headers;
         },
-        isTokenExpired(state){
-            return (state.tokenExpiration > Date.now())
+        tokenExpiration(state){
+            return state.tokenExpiration
+        },
+        userLoaded(state){
+            return (state.user)
         }
     }
 })
