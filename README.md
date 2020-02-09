@@ -5,6 +5,7 @@ Simple app that uses the service CSVtoJSONorXML.
 
 + Authentication: login, logout and management of JWT tokens, including refresh tokens as needed.
 + Actions: display the list of users created and allows for new user creation.
++ Parser: parse csv files to JSON, XML, SQL or PIPE
 
 Concepts explored: Router, vuex, axios
 
